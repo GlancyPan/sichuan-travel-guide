@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>川西小环线7日摄影攻略-打印版</title>
+    <style>
+        /* 打印优化样式 */
+        @media print {
+            @page {
+                size: A4;
+                margin: 20mm 15mm; /* 上下左右页边距 */
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                font-size: 10.5pt; /* 正文字号调小 */
+                line-height: 1.5;
+                color: #000;
+                background: #fff;
+            }
+
+            /* 避免分页时断开的元素 */
+            h1, h2, h3, .photo-guide-card, .accommodation, .budget, table {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            /* 强制分页 */
+            .day-plan {
+                break-before: page;
+                page-break-before: always;
+            }
+
+            /* 打印时隐藏阴影和渐变 */
+            .section, .day-plan, .photo-guide-card {
+                box-shadow: none !important;
+                background: #fff !important;
+            }
+
+            /* 页眉页脚 */
+            @top-center {
+                content: "川西小环线7日摄影攻略";
+                font-family: 'SimSun', serif;
+                font-size: 9pt;
+            }
+
+            @bottom-center {
+                content: "第 " counter(page) " 页";
+                font-family: 'SimSun', serif;
+                font-size: 9pt;
+            }
+        }
+
+        /* 基础样式优化 */
+        body {
+            font-family: 'SimSun', serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 10mm;
+            background: #fff;
+            color: #000;
+        }
+
+        .container {
+            max-width: 180mm; /* A4纸有效内容区域 */
+            margin: 0 auto;
+        }
+
+        /* 标题样式优化 */
+        h1 {
+            font-size: 18pt;
+            text-align: center;
+            margin: 15pt 0;
+            padding-bottom: 8pt;
+            border-bottom: 1.5pt solid #000;
+        }
+
+        h2 {
+            font-size: 14pt;
+            margin: 12pt 0;
+            padding-bottom: 4pt;
+            border-bottom: 1pt solid #000;
+        }
+
+        h3 {
+            font-size: 12pt;
+            margin: 8pt 0;
+            padding-left: 4pt;
+            border-left: 2pt solid #000;
+        }
+
+        /* 目录优化 */
+        .toc {
+            margin: 15pt 0;
+            padding: 8pt;
+            border: 0.5pt solid #000;
+            break-after: page;
+            page-break-after: always;
+        }
+
+        .toc-item {
+            margin: 4pt 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 0.5pt dotted #000;
+        }
+
+        .toc-page {
+            margin-left: 8pt;
+        }
+
+        /* 两栏布局优化 */
+        .two-column {
+            column-count: 2;
+            column-gap: 15pt;
+            margin: 8pt 0;
+        }
+
+        /* 时间轴优化 */
+        .timeline {
+            margin-left: 12pt;
+            padding-left: 8pt;
+            border-left: 0.8pt solid #000;
+        }
+
+        .timeline p {
+            margin: 4pt 0;
+            position: relative;
+        }
+
+        .timeline p:before {
+            content: "";
+            position: absolute;
+            left: -10pt;
+            top: 6pt;
+            width: 4pt;
+            height: 4pt;
+            background: #000;
+            border-radius: 50%;
+        }
+
+        /* 卡片样式优化 */
+        .photo-guide-card {
+            margin: 8pt 0;
+            padding: 8pt;
+            border: 0.5pt solid #000;
+        }
+
+        /* GPS坐标样式优化 */
+        .gps-coordinates {
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            background: #f8f8f8;
+            padding: 2pt 4pt;
+            margin: 4pt 0;
+        }
+
+        /* 表格样式优化 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8pt 0;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 0.5pt solid #000;
+            padding: 4pt;
+            text-align: left;
+        }
+
+        /* 注意事项样式优化 */
+        .notice {
+            padding: 6pt;
+            margin: 6pt 0;
+            border: 0.5pt solid #000;
+            background: #f8f8f8;
+        }
+
+        /* 列表样式优化 */
+        ul {
+            padding-left: 15pt;
+            margin: 4pt 0;
+        }
+
+        ul li {
+            margin: 2pt 0;
+        }
+
+        /* 重要提示样式优化 */
+        .important-note {
+            margin: 8pt 0;
+            padding: 6pt;
+            border: 0.5pt solid #000;
+            background: #f8f8f8;
+        }
+
+        /* 补充：装备清单表格样式 */
+        .equipment-table th {
+            background: #f8f8f8;
+            font-weight: bold;
+        }
+
+        /* 补充：住宿信息样式 */
+        .accommodation {
+            margin: 8pt 0;
+            padding: 6pt;
+            border: 0.5pt solid #000;
+        }
+
+        /* 补充：预算表格样式 */
+        .budget-table {
+            width: 100%;
+            font-size: 10pt;
+        }
+
+        .budget-table th {
+            background: #f8f8f8;
+        }
+
+        /* 补充：页面分隔符 */
+        .page-break {
+            break-after: page;
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>川西小环线7日6晚深度摄影攻略</h1>
+
+        <!-- 目录 -->
+        <div class="toc">
+            <h2>目录</h2>
+            <div class="toc-item">行前准备 <span class="toc-page">1</span></div>
+            <div class="toc-item">摄影器材清单 <span class="toc-page">2</span></div>
+            <div class="toc-item">日程安排 <span class="toc-page">3-7</span></div>
+            <div class="toc-item">摄影指南 <span class="toc-page">8-9</span></div>
+            <div class="toc-item">预算明细 <span class="toc-page">10</span></div>
+            <div class="toc-item">安全指南 <span class="toc-page">11</span></div>
+        </div>
+
+        <!-- 行前准备部分 -->
+        <div class="section">
+            <h2>行前准备</h2>
+            <div class="two-column">
+                <div>
+                    <h3>航班信息</h3>
+                    <table>
+                        <tr>
+                            <th>日期</th>
+                            <th>航班</th>
+                            <th>时间</th>
+                            <th>价格</th>
+                        </tr>
+                        <tr>
+                            <td>7月9日</td>
+                            <td>MU5489</td>
+                            <td>08:25-11:00</td>
+                            <td>¥880起</td>
+                        </tr>
+                        <tr>
+                            <td>7月16日</td>
+                            <td>3U8912</td>
+                            <td>07:45-10:20</td>
+                            <td>¥790起</td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>租车信息</h3>
+                    <ul>
+                        <li>车型：丰田RAV4</li>
+                        <li>租期：7月9日-7月16日</li>
+                        <li>费用：420元/天</li>
+                        <li>取车点：成都双流机场T2航站楼</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 摄影器材与装备清单 -->
+        <div class="section">
+            <h2>摄影器材与装备清单</h2>
+            <table class="equipment-table">
+                <tr>
+                    <th>类别</th>
+                    <th>物品</th>
+                    <th>说明</th>
+                </tr>
+                <tr>
+                    <td>主要器材</td>
+                    <td>相机机身、70-200mm镜头、24-70mm镜头</td>
+                    <td>备用电池4块，存储卡128G×2</td>
+                </tr>
+                <tr>
+                    <td>摄影配件</td>
+                    <td>三脚架、滤镜组、清洁套装</td>
+                    <td>ND、偏振镜必备</td>
+                </tr>
+                <tr>
+                    <td>高原装备</td>
+                    <td>氧气瓶、高原药品、保暖衣物</td>
+                    <td>建议提前服用红景天</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 日程安排（每天单独分页） -->
+        <div class="day-plan">
+            <h2>Day 1（7月9日）：温州→成都</h2>
+            <div class="timeline">
+                <p>08:25 温州龙湾机场出发</p>
+                <p>11:00 抵达成都双流机场</p>
+                <p>12:00 取车、午餐</p>
+                <p>14:00-17:00 市区采购补给</p>
+                <p>18:00 太古里夜景拍摄</p>
+            </div>
+            <div class="photo-guide-card">
+                <h3>太古里夜景拍摄指南</h3>
+                <ul>
+                    <li>推荐机位：24-70mm</li>
+                    <li>参数建议：f/8, ISO 100, 1/60s</li>
+                    <li>最佳拍摄时间：18:30-20:00</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-plan">
+            <h2>Day 2（7月10日）：成都→新都桥</h2>
+            <div class="timeline">
+                <p>05:30 酒店早餐</p>
+                <p>06:00 出发前往新都桥</p>
+                <p>12:00 泰安服务区午餐休息</p>
+                <p>15:00 抵达新都桥</p>
+                <p>17:00-18:30 新都桥日落金山拍摄</p>
+                <p>19:00 晚餐、整理照片</p>
+            </div>
+            <div class="photo-guide-card">
+                <h3>新都桥日落拍摄要点</h3>
+                <p class="gps-coordinates">GPS: 30.0444°N, 101.5016°E</p>
+                <ul>
+                    <li>器材：70-200mm，偏振镜</li>
+                    <li>参数：f/8-f/11，ISO 100</li>
+                    <li>构图：利用远山层次</li>
+                </ul>
+            </div>
+            <div class="important-note">
+                <h3>住宿信息</h3>
+                <p>新都桥逸家酒店，标准房，含早餐</p>
+                <p>提前要求安排面向草原的房间</p>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-plan">
+            <h2>Day 3（7月11日）：新都桥→折多山→康定</h2>
+            <div class="timeline">
+                <p>06:00 折多山日出拍摄</p>
+                <p>09:00 返回酒店早餐</p>
+                <p>10:00 出发前往康定</p>
+                <p>12:00 抵达康定，午餐</p>
+                <p>14:00-16:00 康定老城区摄影</p>
+                <p>16:30-18:30 木格措景区摄影</p>
+            </div>
+            <div class="photo-guide-card">
+                <h3>折多山日出拍摄指南</h3>
+                <p class="gps-coordinates">GPS: 30.0876°N, 101.8512°E</p>
+                <ul>
+                    <li>器材：24-70mm，三脚架</li>
+                    <li>参数：光线变化快，注意实时调整</li>
+                    <li>重点：注意云海变化，可拍摄延时</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-plan">
+            <h2>Day 4（7月12日）：康定→塔公草原</h2>
+            <div class="timeline">
+                <p>05:30 晨光拍摄</p>
+                <p>08:00 酒店早餐</p>
+                <p>09:00 出发前往塔公</p>
+                <p>11:00 塔公寺摄影</p>
+                <p>15:00-17:00 草原骑马体验</p>
+                <p>17:30-19:00 塔公草原日落</p>
+            </div>
+            <div class="photo-guide-card">
+                <h3>塔公草原拍摄指南</h3>
+                <p class="gps-coordinates">GPS: 31.9023°N, 101.5356°E</p>
+                <ul>
+                    <li>器材：广角和长焦都需要</li>
+                    <li>主题：牧民生活、草原风光</li>
+                    <li>建议：可以请当地牧民作为前景</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-plan">
+            <h2>Day 5（7月13日）：塔公→新路海→四姑娘山</h2>
+            <div class="timeline">
+                <p>06:30 晨拍、早餐</p>
+                <p>08:00 出发前往新路海</p>
+                <p>10:00-12:00 新路海摄影创作</p>
+                <p>14:00 抵达四姑娘山镇</p>
+                <p>16:00-18:30 日照金山拍摄</p>
+            </div>
+            <div class="photo-guide-card">
+                <h3>新路海拍摄指南</h3>
+                <p class="gps-coordinates">GPS: 31.4589°N, 102.0634°E</p>
+                <ul>
+                    <li>器材：广角为主，建议使用偏振镜</li>
+                    <li>主题：湖面倒影、周边山峰</li>
+                    <li>天气：注意观察云层变化</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Day 6 -->
+        <div class="day-plan">
+            <h2>Day 6（7月14日）：四姑娘山深度摄影</h2>
+            <div class="timeline">
+                <p>06:00-08:00 长坪沟晨拍</p>
+                <p>08:00-09:00 早餐休息</p>
+                <p>09:00-12:00 双桥沟摄影</p>
+                <p>14:00-16:00 海子沟徒步</p>
+                <p>17:00-19:00 日落拍摄</p>
+            </div>
+            <div class="photo-guide-card">
+                <h3>四姑娘山摄影攻略</h3>
+                <p class="gps-coordinates">GPS: 31.4862°N, 102.8645°E</p>
+                <ul>
+                    <li>器材：全画幅相机，16-35mm和70-200mm</li>
+                    <li>滤镜：偏振镜、ND减光镜</li>
+                    <li>重点：雪山、云海、晨光、星空</li>
+                </ul>
+            </div>
+            <div class="important-note">
+                <h3>住宿信息</h3>
+                <p>日隆镇蓝天国际大酒店</p>
+                <p>提示：海拔较高，准备高原药物</p>
+            </div>
+        </div>
+
+        <!-- Day 7 -->
+        <div class="day-plan">
+            <h2>Day 7（7月15/16日）：四姑娘山→成都→温州</h2>
+            <div class="timeline">
+                <p>04:00-07:30 日出拍摄</p>
+                <p>08:00 酒店早餐、退房</p>
+                <p>09:00 返程成都</p>
+                <p>15:00 抵达成都</p>
+                <p>16:00 还车</p>
+                <p>18:00 太古里夜景拍摄</p>
+                <p>次日07:45 返程航班</p>
+            </div>
+            <div class="photo-guide-card">
+                <h3>返程备选方案</h3>
+                <ul>
+                    <li>方案A：直接返回成都</li>
+                    <li>方案B：途经都江堰拍摄</li>
+                    <li>住宿：太古里璞邸酒店</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 摄影指南部分 -->
+        <div class="section">
+            <h2>摄影指南</h2>
+            <div class="two-column">
+                <div class="photo-guide-card">
+                    <h3>新都桥日落金山</h3>
+                    <p class="gps-coordinates">GPS: 30.0444°N, 101.5016°E</p>
+                    <ul>
+                        <li>最佳时间：17:00-18:30</li>
+                        <li>器材配置：70-200mm f/2.8</li>
+                        <li>构图要点：利用层次感突出金山效果</li>
+                    </ul>
+                </div>
+                <div class="photo-guide-card">
+                    <h3>折多山日出</h3>
+                    <p class="gps-coordinates">GPS: 30.0876°N, 101.8512°E</p>
+                    <ul>
+                        <li>最佳时间：06:30-07:30</li>
+                        <li>器材配置：24-70mm f/2.8</li>
+                        <li>构图要点：注意云海变化</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 预算明细 -->
+        <div class="section">
+            <h2>预算明细</h2>
+            <table>
+                <tr>
+                    <th>项目</th>
+                    <th>金额</th>
+                    <th>备注</th>
+                </tr>
+                <tr>
+                    <td>机票</td>
+                    <td>¥1670</td>
+                    <td>往返</td>
+                </tr>
+                <tr>
+                    <td>租车</td>
+                    <td>¥2940</td>
+                    <td>7天</td>
+                </tr>
+                <tr>
+                    <td>住宿</td>
+                    <td>¥2400</td>
+                    <td>6晚</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 安全指南 -->
+        <div class="section">
+            <h2>安全指南</h2>
+            <div class="notice">
+                <h3>高原注意事项</h3>
+                <ul>
+                    <li>循序渐进，不要剧烈运动</li>
+                    <li>多饮水，保持充足休息</li>
+                    <li>随身携带氧气瓶和药品</li>
+                </ul>
+            </div>
+            <div class="notice">
+                <h3>应急联系方式</h3>
+                <ul>
+                    <li>急救电话：120</li>
+                    <li>交通事故：122</li>
+                    <li>报警电话：110</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 补充：驾驶安全指南 -->
+        <div class="section">
+            <h2>驾驶安全指南</h2>
+            <div class="two-column">
+                <div class="notice">
+                    <h3>高原驾驶注意事项</h3>
+                    <ul>
+                        <li>动力系统：
+                            <ul>
+                                <li>高原空气稀薄，发动机动力下降</li>
+                                <li>避免高速行驶和急加速</li>
+                                <li>保持较低档位行驶</li>
+                            </ul>
+                        </li>
+                        <li>制动系统：
+                            <ul>
+                                <li>下坡时使用低档位</li>
+                                <li>避免长时间踩刹车</li>
+                                <li>保持安全车距</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="notice">
+                    <h3>特殊路况处理</h3>
+                    <ul>
+                        <li>急弯路段：
+                            <ul>
+                                <li>提前减速</li>
+                                <li>注意对向来车</li>
+                                <li>保持车道中心行驶</li>
+                            </ul>
+                        </li>
+                        <li>临崖路段：
+                            <ul>
+                                <li>靠山体一侧行驶</li>
+                                <li>避免频繁变道</li>
+                                <li>雨天特别注意路面状况</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 补充：摄影技巧详解 -->
+        <div class="section">
+            <h2>摄影技巧详解</h2>
+            <div class="two-column">
+                <div class="photo-guide-card">
+                    <h3>风光摄影技巧</h3>
+                    <ul>
+                        <li>光线运用：
+                            <ul>
+                                <li>晨昏光线最佳，注意逆光效果</li>
+                                <li>阴天利用漫射光拍摄细节</li>
+                                <li>雨后注意捕捉彩虹机会</li>
+                            </ul>
+                        </li>
+                        <li>构图技巧：
+                            <ul>
+                                <li>前景增加画面层次</li>
+                                <li>利用引导线带出主题</li>
+                                <li>注意天空与地面比例</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="photo-guide-card">
+                    <h3>后期处理建议</h3>
+                    <ul>
+                        <li>RAW格式处理：
+                            <ul>
+                                <li>保持自然色彩</li>
+                                <li>适度提升对比度</li>
+                                <li>注意细节保护</li>
+                            </ul>
+                        </li>
+                        <li>常用参数：
+                            <ul>
+                                <li>色温：5500K-6500K</li>
+                                <li>曝光补偿：-0.3~+0.3EV</li>
+                                <li>对比度：+10~+20</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 补充：装备使用指南 -->
+        <div class="section">
+            <h2>装备使用指南</h2>
+            <div class="two-column">
+                <div class="equipment-guide">
+                    <h3>滤镜使用技巧</h3>
+                    <table class="equipment-table">
+                        <tr>
+                            <th>滤镜类型</th>
+                            <th>适用场景</th>
+                            <th>使用建议</th>
+                        </tr>
+                        <tr>
+                            <td>偏振镜</td>
+                            <td>消除反光、增加饱和度</td>
+                            <td>注意旋转角度，避免过度偏振</td>
+                        </tr>
+                        <tr>
+                            <td>ND减光镜</td>
+                            <td>瀑布、流水、云海</td>
+                            <td>建议使用6档，配合三脚架</td>
+                        </tr>
+                        <tr>
+                            <td>GND渐变镜</td>
+                            <td>平衡天空与地面亮度</td>
+                            <td>注意过渡自然，避免痕迹</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="equipment-guide">
+                    <h3>三脚架使用要点</h3>
+                    <ul>
+                        <li>架设位置：
+                            <ul>
+                                <li>选择稳固地面</li>
+                                <li>注意重心平衡</li>
+                                <li>避免强风位置</li>
+                            </ul>
+                        </li>
+                        <li>使用技巧：
+                            <ul>
+                                <li>先调整高度再调平</li>
+                                <li>注意锁紧所有旋钮</li>
+                                <li>挂重物增加稳定性</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 补充：高原摄影特别提示 -->
+        <div class="section">
+            <h2>高原摄影特别提示</h2>
+            <div class="two-column">
+                <div class="notice">
+                    <h3>器材防护</h3>
+                    <ul>
+                        <li>温度适应：
+                            <ul>
+                                <li>避免温差过大导致起雾</li>
+                                <li>准备防潮袋和干燥剂</li>
+                                <li>备用电池保暖存放</li>
+                            </ul>
+                        </li>
+                        <li>防尘措施：
+                            <ul>
+                                <li>避免野外换镜头</li>
+                                <li>常备气吹和擦拭布</li>
+                                <li>相机套防护</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="notice">
+                    <h3>拍摄建议</h3>
+                    <ul>
+                        <li>光线特点：
+                            <ul>
+                                <li>紫外线强，注意偏色</li>
+                                <li>光线变化快，随时调整</li>
+                                <li>善用云层变化</li>
+                            </ul>
+                        </li>
+                        <li>体能分配：
+                            <ul>
+                                <li>合理安排拍摄时间</li>
+                                <li>避免剧烈运动后拍摄</li>
+                                <li>注意保暖和防晒</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 补充：常用联系方式 -->
+        <div class="section">
+            <h2>常用联系方式</h2>
+            <table class="contact-table">
+                <tr>
+                    <th>类别</th>
+                    <th>名称</th>
+                    <th>联系方式</th>
+                    <th>备注</th>
+                </tr>
+                <tr>
+                    <td rowspan="2">医疗救助</td>
+                    <td>康定市人民医院</td>
+                    <td>0836-2822374</td>
+                    <td>最近综合医院</td>
+                </tr>
+                <tr>
+                    <td>四姑娘山医疗点</td>
+                    <td>0837-2791120</td>
+                    <td>高原救助</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">交通协助</td>
+                    <td>道路救援</td>
+                    <td>0836-2823122</td>
+                    <td>24小时服务</td>
+                </tr>
+                <tr>
+                    <td>交警队</td>
+                    <td>0836-2835110</td>
+                    <td>事故处理</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">景区服务</td>
+                    <td>四姑娘山景区</td>
+                    <td>0837-2791001</td>
+                    <td>咨询服务</td>
+                </tr>
+                <tr>
+                    <td>天气预报</td>
+                    <td>0836-2823456</td>
+                    <td>当地天气</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html> 

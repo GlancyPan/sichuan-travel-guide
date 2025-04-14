@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4a90e2">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/images/icon-192x192.png">
+    <title>四川旅行指南</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- PWA支持 -->
+    <meta name="theme-color" content="#4A90E2">
+    <link rel="apple-touch-icon" href="images/icon-180x180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 双列布局容器 */
+        .two-column-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        /* 单列布局容器 */
+        .single-column-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 标题样式优化 */
+        h1 {
+            text-align: center;
+            font-size: 2.2em;
+            color: #34495e;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(to right, #ffffff, #e8f5e9, #ffffff);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            margin-top: 30px;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: #2c3e50;
+            border-left: 4px solid #4CAF50;
+            padding-left: 10px;
+            margin-top: 20px;
+            font-size: 1.4em;
+        }
+
+        /* 卡片样式优化 */
+        .section, .day-plan {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* 特殊内容块样式 */
+        .photo-tip, .accommodation, .budget {
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .photo-tip {
+            background-color: #f8f9fa;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .accommodation {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+        }
+
+        .budget {
+            background-color: #fff3e0;
+            border: 1px solid #ffe0b2;
+        }
+
+        /* 时间轴样式优化 */
+        .timeline {
+            margin-left: 20px;
+            padding-left: 25px;
+            border-left: 3px solid #4CAF50;
+            position: relative;
+        }
+
+        .timeline p {
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .timeline p:before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: #4CAF50;
+            border-radius: 50%;
+            position: absolute;
+            left: -31px;
+            top: 6px;
+        }
+
+        /* 列表样式优化 */
+        ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        ul li {
+            margin: 8px 0;
+            list-style-type: circle;
+        }
+
+        ul li ul li {
+            list-style-type: disc;
+        }
+
+        /* 特殊标记样式 */
+        .gps-coordinates {
+            font-family: monospace;
+            color: #0d47a1;
+            background: #e3f2fd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .important-note {
+            background-color: #ffebee;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #ef5350;
+        }
+
+        /* 响应式设计优化 */
+        @media (max-width: 1200px) {
+            .two-column-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .section, .day-plan {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .container {
+                padding: 0 10px;
+            }
+        }
+
+        /* 新增：内容块悬停效果 */
+        .section:hover, .day-plan:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        /* 新增：标签样式 */
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        /* 新增：图标样式 */
+        .icon {
+            margin-right: 5px;
+            color: #4CAF50;
+        }
+
+        /* 新增：摄影指南卡片样式 */
+        .photo-guide-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .photo-guide-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        .photo-guide-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4CAF50;
+        }
+
+        .photo-guide-header h3 {
+            margin: 0;
+            color: #2c3e50;
+            border: none;
+            padding: 0;
+        }
+
+        .photo-guide-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .photo-guide-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid #4CAF50;
+        }
+
+        .photo-guide-item h4 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        /* 新增：备选方案样式 */
+        .alternative-plan {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 1px solid #e0e0e0;
+        }
+
+        .alternative-plan-header {
+            background: #e8f5e9;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .alternative-plan-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .photo-guide-content,
+            .alternative-plan-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>川西小环线7日6晚深度摄影攻略</h1>
+
+        <!-- 行前准备部分使用双列布局 -->
+        <div class="two-column-container">
+            <div class="section">
+                <h2>航班信息</h2>
+                <ul>
+                    <li>去程（7月9日）：
+                        <ul>
+                            <li>推荐航班1：MU5489 温州-成都 19:25-22:20（¥880起）</li>
+                            <li>推荐航班2：3U8912 温州-成都 20:15-23:05（¥790起）</li>
+                            <li>选择晚班机，第二天充分休息后出发</li>
+                        </ul>
+                    </li>
+                    <li>返程（7月15日）：
+                        <ul>
+                            <li>推荐航班1：MU5490 成都-温州 20:30-23:00（¥1080起）</li>
+                            <li>推荐航班2：3U8911 成都-温州 19:45-22:20（¥990起）</li>
+                        </ul>
+                    </li>
+                    <li>托运说明：
+                        <ul>
+                            <li>东航：23kg免费额度</li>
+                            <li>川航：20kg免费额度</li>
+                            <li>建议购买行李保险</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="section">
+                <h2>租车信息</h2>
+                <ul>
+                    <li>车型：坦克300（城市版）
+                        <ul>
+                            <li>动力：2.0T发动机，195kW最大功率</li>
+                            <li>变速箱：9AT，适应高原工况</li>
+                            <li>后备箱：898L，满足摄影器材</li>
+                            <li>最小离地间隙：224mm，适合野外摄影</li>
+                        </ul>
+                    </li>
+                    <li>租车平台：神州租车
+                        <ul>
+                            <li>提前20天预订，享受85折</li>
+                            <li>必选全险无忧套餐</li>
+                            <li>建议在成都双流机场取还车</li>
+                        </ul>
+                    </li>
+                    <li>费用：
+                        <ul>
+                            <li>日均租金：780元（提前预订价）</li>
+                            <li>全险套餐：138元/天</li>
+                            <li>押金：10000元（信用卡预授权）</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 摄影器材和必备物品使用双列布局 -->
+        <div class="two-column-container">
+            <div class="section">
+                <h2>摄影器材准备</h2>
+                <ul>
+                    <li>主机：尼康Z8
+                        <ul>
+                            <li>基础设置：
+                                <ul>
+                                    <li>RAW+JPEG（便于快速预览）</li>
+                                    <li>色温：5500K（晴天基准）</li>
+                                    <li>ISO：64-1600（根据场景）</li>
+                                </ul>
+                            </li>
+                            <li>自定义设置：
+                                <ul>
+                                    <li>U1：风光（f/8，矩阵测光）</li>
+                                    <li>U2：人文（f/4，中央重点）</li>
+                                    <li>U3：星空（f/2.8，点测光）</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>镜头配置：
+                        <ul>
+                            <li>24-70mm f/2.8：
+                                <ul>
+                                    <li>主要用途：晨昏全景、建筑群落、环境人像</li>
+                                    <li>滤镜：UV（常驻）、偏振镜、GND0.9</li>
+                                </ul>
+                            </li>
+                            <li>70-200mm f/2.8：
+                                <ul>
+                                    <li>主要用途：山峦层次、云海压缩、建筑细节</li>
+                                    <li>注意事项：必备三脚架，防抖常开</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>辅助设备：
+                        <ul>
+                            <li>X100VI：街拍、人文纪实、建筑细节</li>
+                            <li>DJI Pocket 3：延时摄影、Vlog、移动转场</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="section">
+                <h2>必备物品清单</h2>
+                <ul>
+                    <li>摄影配件：
+                        <ul>
+                            <li>存储设备：
+                                <ul>
+                                    <li>CFexpress Type B 256GB×3（一张备用）</li>
+                                    <li>SD UHS-II 128GB×3（一张备用）</li>
+                                    <li>便携移动硬盘 2TB×2（双备份）</li>
+                                    <li>笔记本电脑（备份+查看照片）</li>
+                                </ul>
+                            </li>
+                            <li>电源设备：
+                                <ul>
+                                    <li>Z8电池×4（2个备用）</li>
+                                    <li>X100VI电池×3（1个备用）</li>
+                                    <li>多口USB充电器（支持快充）</li>
+                                    <li>车载充电器（双USB输出）</li>
+                                    <li>充电宝 20000mAh×2</li>
+                                </ul>
+                            </li>
+                            <li>支撑设备：
+                                <ul>
+                                    <li>碳纤维三脚架（2.5kg以下）</li>
+                                    <li>迷你便携三脚架（备用）</li>
+                                    <li>快装板×2</li>
+                                </ul>
+                            </li>
+                            <li>清洁养护：
+                                <ul>
+                                    <li>清洁三件套（气吹、镜头笔、拭镜纸）</li>
+                                    <li>备用镜头布×3</li>
+                                    <li>镜头清洁湿巾（酒精型）</li>
+                                    <li>防霉片、干燥剂</li>
+                                </ul>
+                            </li>
+                            <li>防护装备：
+                                <ul>
+                                    <li>相机防雨罩×2</li>
+                                    <li>相机包防雨罩</li>
+                                    <li>硅胶干燥剂大包装</li>
+                                    <li>防水相机包</li>
+                                    <li>镜头保暖套</li>
+                                    <li>防水防尘胶带</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>高原装备：
+                        <ul>
+                            <li>医疗用品：
+                                <ul>
+                                    <li>红景天胶囊（提前14天开始服用）</li>
+                                    <li>诺迪康（高原反应，2盒）</li>
+                                    <li>布洛芬（头痛，2盒）</li>
+                                    <li>创可贴、碘伏、绷带</li>
+                                    <li>便携式制氧机（1台）</li>
+                                    <li>小型氧气瓶（2瓶）</li>
+                                    <li>血氧仪（实时监测）</li>
+                                </ul>
+                            </li>
+                            <li>防护装备：
+                                <ul>
+                                    <li>防晒三件套：
+                                        <ul>
+                                            <li>面部防晒霜SPF50+ PA++++（2支）</li>
+                                            <li>身体防晒霜SPF30+（1支）</li>
+                                            <li>防晒喷雾（补涂用）</li>
+                                        </ul>
+                                    </li>
+                                    <li>防风装备：
+                                        <ul>
+                                            <li>GTX防水冲锋衣</li>
+                                            <li>防风保暖抓绒衣</li>
+                                            <li>速干内衣裤（3套）</li>
+                                            <li>防水登山鞋</li>
+                                        </ul>
+                                    </li>
+                                    <li>保暖装备：
+                                        <ul>
+                                            <li>羽绒服（晚间保暖）</li>
+                                            <li>保暖手套（可触屏）</li>
+                                            <li>抓绒帽子</li>
+                                            <li>保暖围脖</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>自驾装备：
+                        <ul>
+                            <li>车载必备：
+                                <ul>
+                                    <li>行车记录仪（前后双录）</li>
+                                    <li>胎压监测仪</li>
+                                    <li>便携式充气泵</li>
+                                    <li>应急启动电源</li>
+                                    <li>车载逆变器（300W）</li>
+                                    <li>备用车钥匙</li>
+                                </ul>
+                            </li>
+                            <li>应急装备：
+                                <ul>
+                                    <li>应急工具箱（含备用保险丝）</li>
+                                    <li>拖车绳</li>
+                                    <li>反光警示牌</li>
+                                    <li>应急手电筒</li>
+                                    <li>雨刮精</li>
+                                    <li>玻璃水</li>
+                                </ul>
+                            </li>
+                            <li>舒适装备：
+                                <ul>
+                                    <li>颈枕、腰靠</li>
+                                    <li>毛毯</li>
+                                    <li>垃圾袋</li>
+                                    <li>纸巾、湿巾</li>
+                                    <li>车载冰箱（选配）</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 日程安排部分保持单列 -->
+        <div class="single-column-container">
+            <div class="day-plan">
+                <h2>Day 1（7月9日）：温州→成都</h2>
+                <div class="timeline">
+                    <p>19:25-22:20 航班飞行</p>
+                    <p>22:30-23:30 机场→酒店</p>
+                </div>
+                <div class="accommodation">
+                    <h3>住宿：成都希尔顿欢朋酒店（双流机场店）</h3>
+                    <p>地址：双流区双楠大道与公兴街交叉路口</p>
+                    <p>价格：458元/晚</p>
+                    <p>特点：
+                        <ul>
+                            <li>距离机场仅10分钟车程，免费接机</li>
+                            <li>周边大型商超（沃尔玛、迪卡侬）</li>
+                            <li>附近有多家户外用品店和药店</li>
+                            <li>第二天取车方便，节省市区来回时间</li>
+                            <li>24小时大堂吧，方便晚到休息</li>
+                        </ul>
+                    </p>
+                    <p>第二天补给地点：
+                        <ul>
+                            <li>沃尔玛（早上7:00开门）：
+                                <ul>
+                                    <li>干粮、饮用水、零食</li>
+                                    <li>应急药品补充</li>
+                                    <li>保温水壶、保温饭盒</li>
+                                </ul>
+                            </li>
+                            <li>迪卡侬（早上10:00开门）：
+                                <ul>
+                                    <li>户外装备补充</li>
+                                    <li>保暖用品</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <h2>Day 2（7月10日）：成都→康定</h2>
+                <div class="timeline">
+                    <p>07:00-08:00 酒店早餐，设备检查</p>
+                    <p>08:00-09:00 沃尔玛采购补给
+                        <ul>
+                            <li>干粮：压缩饼干、能量棒、巧克力</li>
+                            <li>饮品：矿泉水、功能饮料、红牛</li>
+                            <li>零食：坚果、牛肉干、水果</li>
+                            <li>药品补充：创可贴、碘伏等</li>
+                        </ul>
+                    </p>
+                    <p>09:00-09:30 取车，设备调试</p>
+                    <p>09:30-10:00 加油站加满油、检查胎压</p>
+                    <p>10:00-13:00 成都→雅安（150km，高速）
+                        <ul>
+                            <li>建议在服务区短暂休息</li>
+                            <li>路过名山可短停拍摄茶园风光</li>
+                        </ul>
+                    </p>
+                    <p>13:00-14:00 雅安午餐（推荐蒙顶山茶园餐厅）
+                        <ul>
+                            <li>特色：雅安藏茶、芽菜炒腊肉</li>
+                            <li>位置：蒙顶山路88号</li>
+                            <li>可以购买当地特产</li>
+                        </ul>
+                    </p>
+                    <p>14:00-17:00 雅安→康定（165km，山路）
+                        <ul>
+                            <li>泸定桥可短停拍摄（建议40分钟）</li>
+                            <li>注意适应海拔上升</li>
+                            <li>建议每1.5小时休息一次</li>
+                        </ul>
+                    </p>
+                    <p>17:00-18:30 康定市区拍摄（情歌广场、木格措广场）</p>
+                    <p>19:00 晚餐，休息</p>
+                </div>
+                <div class="photo-tip">
+                    <h3>康定市区拍摄建议</h3>
+                    <ul>
+                        <li>推荐器材：X100VI（街拍为主）</li>
+                        <li>拍摄主题：城市建筑、藏式元素、市井生活</li>
+                        <li>注意事项：光线柔和时段，避免正午强光</li>
+                        <li>重点拍摄点：
+                            <ul>
+                                <li>情歌广场（傍晚舞蹈表演）：70-200mm抓拍</li>
+                                <li>木格措广场（建筑细节）：24-70mm环境</li>
+                                <li>老城区街巷（人文纪实）：X100VI定焦</li>
+                            </ul>
+                        </li>
+                        <li>泸定桥拍摄建议：
+                            <ul>
+                                <li>上午光线：逆光剪影效果</li>
+                                <li>下午光线：侧光质感表现</li>
+                                <li>推荐使用24-70mm+偏振镜</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="accommodation">
+                    <h3>住宿：康定情歌酒店</h3>
+                    <p>价格：498元/晚</p>
+                    <p>特点：距情歌广场300米，免费氧气供应，免费接送折多山</p>
+                    <p>房型建议：山景房（可以看到贡嘎雪山）</p>
+                    <p>提前准备：
+                        <ul>
+                            <li>准备氧气瓶（酒店提供）</li>
+                            <li>热水袋（高原昼夜温差大）</li>
+                            <li>预约次日折多山接送服务</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <h2>Day 3（7月11日）：康定→折多山→新都桥</h2>
+                <div class="timeline">
+                    <p>05:30 起床准备（调整为更合理时间）</p>
+                    <p>06:00-06:30 前往折多山（酒店接送）</p>
+                    <p>06:30-09:00 折多山日出拍摄
+                        <ul>
+                            <li>06:30-07:00 器材准备，寻找机位</li>
+                            <li>07:00-08:00 晨光和日出拍摄</li>
+                            <li>08:00-09:00 云海延时摄影</li>
+                        </ul>
+                    </p>
+                    <p>09:00-10:00 返回酒店，早餐补给</p>
+                    <p>10:00-11:00 休息调整</p>
+                    <p>11:00-12:00 前往新都桥（从容驾驶）</p>
+                    <p>12:00-14:00 新都桥午餐、休息</p>
+                    <p>14:00-17:30 草原精拍（黄金时段）</p>
+                    <p>17:30-19:00 晚餐，整理照片</p>
+                </div>
+                <div class="photo-tip">
+                    <h3>折多山拍摄攻略（海拔4298米）</h3>
+                    <ul>
+                        <li>机位选择：
+                            <ul>
+                                <li>观景台1号位（主日出点）：GPS: 30.0876°N, 101.8512°E</li>
+                                <li>观景台2号位（云海观测）：GPS: 30.0881°N, 101.8508°E</li>
+                            </ul>
+                        </li>
+                        <li>器材配置：
+                            <ul>
+                                <li>主机1：Z8+24-70mm（全景构图）</li>
+                                <li>主机2：Z8+70-200mm（云海细节）</li>
+                                <li>必备：三脚架、GND0.9滤镜、保暖手套</li>
+                            </ul>
+                        </li>
+                        <li>拍摄技巧：
+                            <ul>
+                                <li>蓝调时分：ISO 1600-3200，光圈f/2.8，色温4000K</li>
+                                <li>日出时分：ISO 100，光圈f/8-f/11，使用GND平衡天地</li>
+                                <li>云海延时：间隔5秒，光圈优先，自动ISO</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="photo-tip">
+                    <h3>新都桥草原拍摄指南（重点拍摄地）</h3>
+                    <ul>
+                        <li>拍摄点A：观景台（GPS: 30.0444°N, 101.5016°E）
+                            <ul>
+                                <li>主题：河谷全景、草原与山脉交界</li>
+                                <li>最佳时间：13:30-15:00（侧逆光）</li>
+                                <li>器材：24-70mm + 偏振镜</li>
+                            </ul>
+                        </li>
+                        <li>拍摄点B：牧场（GPS: 30.0401°N, 101.4872°E）
+                            <ul>
+                                <li>主题：牧场、牦牛群、藏族民居</li>
+                                <li>最佳时间：15:00-16:30（侧光）</li>
+                                <li>器材：70-200mm（特写和压缩效果）</li>
+                            </ul>
+                        </li>
+                        <li>拍摄点C：河谷（GPS: 30.0318°N, 101.5123°E）
+                            <ul>
+                                <li>主题：河谷、树木倒影、远山层次</li>
+                                <li>最佳时间：16:30-17:00（暖色侧光）</li>
+                                <li>器材：24-70mm + 偏振镜</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="accommodation">
+                    <h3>住宿：新都桥摄影主题酒店</h3>
+                    <p>价格：568元/晚</p>
+                    <p>特点：观景房可直接拍摄草原日出，提供摄影向导服务</p>
+                </div>
+            </div>
+
+            <!-- 日照金山拍摄方案部分改为双列布局 -->
+            <div class="section">
+                <h2>日照金山拍摄方案</h2>
+                <div class="photo-guide-content">
+                    <!-- 左侧：拍摄方案 -->
+                    <div class="photo-guide-card">
+                        <div class="photo-guide-header">
+                            <h3>方案A：新都桥日落金山（优选）</h3>
+                        </div>
+                        <div class="photo-guide-item">
+                            <h4>拍摄信息</h4>
+                            <ul>
+                                <li>时间：Day 3 下午17:00-18:30</li>
+                                <li>地点：新都桥观景台 <span class="gps-coordinates">30.0444°N, 101.5016°E</span></li>
+                                <li>主题：贡嘎雪山日照金山、草原暮色</li>
+                            </ul>
+                        </div>
+                        <div class="photo-guide-item">
+                            <h4>优势特点</h4>
+                            <ul>
+                                <li>光线柔和，金色质感最佳</li>
+                                <li>可与草原暮色结合</li>
+                                <li>拍摄后直接返回酒店休息</li>
+                                <li>视野开阔，前景丰富</li>
+                                <li>适合长焦压缩构图</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 右侧：备选方案 -->
+                    <div class="photo-guide-card">
+                        <div class="photo-guide-header">
+                            <h3>方案B：折多山日出金山（备选）</h3>
+                        </div>
+                        <div class="photo-guide-item">
+                            <h4>拍摄信息</h4>
+                            <ul>
+                                <li>时间：Day 3 早上06:30-07:30</li>
+                                <li>地点：折多山1号观景台 <span class="gps-coordinates">30.0876°N, 101.8512°E</span></li>
+                                <li>主题：贡嘎山脉日照金山、云海变幻</li>
+                            </ul>
+                        </div>
+                        <div class="photo-guide-item">
+                            <h4>优势特点</h4>
+                            <ul>
+                                <li>晨光与云海结合</li>
+                                <li>视野开阔，层次丰富</li>
+                                <li>可拍摄云海穿梭</li>
+                                <li>适合延时摄影</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 拍摄技巧部分也改为双列 -->
+                <div class="photo-guide-content" style="margin-top: 20px;">
+                    <div class="photo-guide-card">
+                        <div class="photo-guide-header">
+                            <h3>器材设置</h3>
+                        </div>
+                        <div class="photo-guide-item">
+                            <h4>推荐器材</h4>
+                            <ul>
+                                <li>主摄：70-200mm f/2.8（压缩效果）</li>
+                                <li>备用：24-70mm f/2.8（环境全景）</li>
+                                <li>滤镜：GND0.9（平衡明暗）</li>
+                                <li>三脚架必备（光线较暗）</li>
+                            </ul>
+                        </div>
+                        <div class="photo-guide-item">
+                            <h4>相机参数</h4>
+                            <ul>
+                                <li>光圈：f/8-f/11（保证景深）</li>
+                                <li>ISO：100-400（视光线情况）</li>
+                                <li>测光：局部测光（对准金光部分）</li>
+                                <li>白平衡：日落模式或5500K</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="photo-guide-card">
+                        <div class="photo-guide-header">
+                            <h3>拍摄技巧</h3>
+                        </div>
+                        <div class="photo-guide-item">
+                            <h4>构图要点</h4>
+                            <ul>
+                                <li>突出金光照射部分</li>
+                                <li>保留暗部轮廓</li>
+                                <li>注意云层变化</li>
+                                <li>日落：加入草原剪影</li>
+                                <li>日出：利用云海层次</li>
+                            </ul>
+                        </div>
+                        <div class="photo-guide-item">
+                            <h4>后期处理</h4>
+                            <ul>
+                                <li>保留金光细节</li>
+                                <li>适当提升暗部</li>
+                                <li>控制高光溢出</li>
+                                <li>强调金色调</li>
+                                <li>保持暗部色调自然</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 备选方案部分 -->
+                <div class="alternative-plan">
+                    <div class="alternative-plan-header">
+                        <h3>天气备选方案</h3>
+                    </div>
+                    <div class="alternative-plan-content">
+                        <div class="photo-guide-item">
+                            <h4>方案调整</h4>
+                            <ul>
+                                <li>若Day 3下午不理想，调整至Day 3早晨折多山</li>
+                                <li>若遇连续阴天，转拍云海氛围</li>
+                            </ul>
+                        </div>
+                        <div class="photo-guide-item">
+                            <h4>注意事项</h4>
+                            <ul>
+                                <li>准备两套拍摄方案，随天气调整</li>
+                                <li>提前查看日落时间和角度</li>
+                                <li>准备保暖装备（日落后温差大）</li>
+                                <li>建议同时准备延时摄影器材</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <h2>Day 4（7月12日）：新都桥→塔公</h2>
+                <div class="timeline">
+                    <p>07:00-08:00 早餐，从容整理行李</p>
+                    <p>08:00-11:30 前往塔公
+                        <ul>
+                            <li>途经雅拉雪山观景台短停（天气好时）</li>
+                            <li>高尔寺山垭口观景拍摄（15分钟）</li>
+                            <li>路况良好，不必赶时间</li>
+                        </ul>
+                    </p>
+                    <p>12:00前 抵达塔公村</p>
+                    <p>下午 跟随摄影团队行程</p>
+                </div>
+                <div class="accommodation">
+                    <h3>住宿：塔公印象精品酒店</h3>
+                    <p>价格：598元/晚</p>
+                    <p>特点：
+                        <ul>
+                            <li>位置：距离塔公寺步行5分钟</li>
+                            <li>房型：藏式特色大床房</li>
+                            <li>设施：24小时热水，独立暖气</li>
+                            <li>配套：免费氧气，电热毯</li>
+                            <li>适合摄影：阳台可拍摄草原日出</li>
+                        </ul>
+                    </p>
+                    <p>备选：塔公雪域天堂酒店（538元/晚）</p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <h2>Day 5（7月13日）：塔公全天</h2>
+                <p>全天跟随摄影团队行程</p>
+            </div>
+
+            <div class="day-plan">
+                <h2>Day 6（7月14日）：塔公→四姑娘山</h2>
+                <div class="timeline">
+                    <p>06:00-08:00 塔公寺晨拍
+                        <ul>
+                            <li>06:00-06:30 晨光中的塔公寺全景（观景台1）</li>
+                            <li>06:30-07:30 寺院晨课、僧人生活（寺院内部）</li>
+                            <li>07:30-08:00 晨光下的草原牧场（观景台2）</li>
+                        </ul>
+                    </p>
+                    <p>08:00-09:00 早餐休整</p>
+                    <p>09:00-12:00 选片、修图</p>
+                    <p>方案A（常规）：
+                        <ul>
+                            <li>12:00-13:00 午餐</li>
+                            <li>13:00-15:30 继续选片</li>
+                            <li>16:00-19:00 前往四姑娘山
+                                <ul>
+                                    <li>途经丹巴藏寨（建议短停15分钟）</li>
+                                    <li>小金县城补给（20分钟）</li>
+                                    <li>建议在海子山垭口短停拍摄（15分钟）</li>
+                                </ul>
+                            </li>
+                            <li>19:00-20:00 日隆镇晚餐（推荐：日隆藏餐馆）</li>
+                            <li>20:00-21:00 简单夜景拍摄
+                                <ul>
+                                    <li>位置：日隆古镇灯光夜景</li>
+                                    <li>主题：藏式建筑夜景、街巷光影</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </p>
+                    <p>方案B（选片提前结束）：
+                        <ul>
+                            <li>12:00-13:00 午餐</li>
+                            <li>13:00-14:00 整理行装</li>
+                            <li>14:00-17:00 前往四姑娘山
+                                <ul>
+                                    <li>14:00-15:30 塔公→丹巴（观景拍摄）</li>
+                                    <li>15:30-16:30 丹巴→小金（补给休息）</li>
+                                    <li>16:30-17:00 小金→日隆镇</li>
+                                </ul>
+                            </li>
+                            <li>17:00-19:00 长坪沟末端徒步拍摄
+                                <ul>
+                                    <li>17:00-17:30 办理长坪沟门票</li>
+                                    <li>17:30-18:30 徒步拍摄（2km往返）</li>
+                                    <li>18:30-19:00 返回日隆镇</li>
+                                </ul>
+                            </li>
+                            <li>19:00-20:00 晚餐</li>
+                            <li>20:00-21:30 星空延时拍摄
+                                <ul>
+                                    <li>位置：日隆古镇观景台</li>
+                                    <li>主题：星空、雪山剪影、古镇灯火</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="photo-tip">
+                    <h3>塔公晨拍攻略</h3>
+                    <ul>
+                        <li>观景台1（GPS: 31.9023°N, 101.5356°E）：
+                            <ul>
+                                <li>主题：晨雾中的塔公寺、草原晨光</li>
+                                <li>器材：24-70mm（全景）、70-200mm（建筑细节）</li>
+                                <li>技巧：利用晨雾层次，塔尖穿透雾气</li>
+                            </ul>
+                        </li>
+                        <li>寺院内部拍摄：
+                            <ul>
+                                <li>主题：僧人诵经、晨课场景</li>
+                                <li>器材：35mm定焦或24-70mm</li>
+                                <li>注意：提前沟通获得拍摄许可</li>
+                                <li>参数：ISO 1600-3200，光圈f/2.8-4</li>
+                            </ul>
+                        </li>
+                        <li>观景台2（GPS: 31.9045°N, 101.5367°E）：
+                            <ul>
+                                <li>主题：草原牧场、牦牛、晨光剪影</li>
+                                <li>器材：70-200mm（压缩效果）</li>
+                                <li>技巧：利用晨光侧逆光，突出剪影</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="photo-tip">
+                    <h3>长坪沟末端深度拍摄指南</h3>
+                    <ul>
+                        <li>徒步路线：
+                            <ul>
+                                <li>起点：长坪沟大门（GPS: 31.4821°N, 102.9245°E）</li>
+                                <li>终点：溪流观景点（GPS: 31.4834°N, 102.9289°E）</li>
+                                <li>路程：单程1km，难度低</li>
+                            </ul>
+                        </li>
+                        <li>拍摄主题与技巧：
+                            <ul>
+                                <li>溪流慢门：
+                                    <ul>
+                                        <li>参数：f/11，ISO 64，2-3秒</li>
+                                        <li>器材：ND减光镜（必备）</li>
+                                        <li>构图：前景溪流，中景森林，远景雪山</li>
+                                    </ul>
+                                </li>
+                                <li>森林光影：
+                                    <ul>
+                                        <li>时间：17:30-18:30（光线最佳）</li>
+                                        <li>参数：f/4，ISO 400，注意光斑</li>
+                                        <li>主题：林间光束、树影交错</li>
+                                    </ul>
+                                </li>
+                                <li>雪山剪影：
+                                    <ul>
+                                        <li>时间：18:00-18:30（暮色渐起）</li>
+                                        <li>参数：f/8，包围曝光3张</li>
+                                        <li>构图：通过前景框架突出雪山</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>后期处理建议：
+                            <ul>
+                                <li>溪流：局部调整高光，保持水花细节</li>
+                                <li>森林：提升暗部，保持光影层次</li>
+                                <li>雪山：HDR合成，保持层次感</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="photo-tip">
+                    <h3>星空拍摄详细指南</h3>
+                    <ul>
+                        <li>前期准备：
+                            <ul>
+                                <li>查看月相：选择月光较弱时段</li>
+                                <li>检查天气：晴朗无云最佳</li>
+                                <li>踩点：白天确认构图位置</li>
+                            </ul>
+                        </li>
+                        <li>器材配置：
+                            <ul>
+                                <li>相机：Z8（高感性能好）</li>
+                                <li>镜头：24-70mm@24mm端</li>
+                                <li>三脚架：碳纤维（稳定性好）</li>
+                                <li>快门线：避免机身抖动</li>
+                                <li>保温装备：羽绒服、保暖手套</li>
+                            </ul>
+                        </li>
+                        <li>拍摄参数：
+                            <ul>
+                                <li>基础设置：
+                                    <ul>
+                                        <li>光圈：f/2.8（最大）</li>
+                                        <li>ISO：3200-6400</li>
+                                        <li>快门：15-20秒</li>
+                                        <li>白平衡：4000K</li>
+                                    </ul>
+                                </li>
+                                <li>对焦方法：
+                                    <ul>
+                                        <li>使用实时取景放大对焦</li>
+                                        <li>对准明亮星星</li>
+                                        <li>确认后锁定手动对焦</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>构图技巧：
+                            <ul>
+                                <li>前景：加入帐篷或建筑轮廓</li>
+                                <li>中景：利用地形起伏</li>
+                                <li>背景：注意银河位置</li>
+                            </ul>
+                        </li>
+                        <li>后期处理：
+                            <ul>
+                                <li>降噪：选择性降噪，保留星点</li>
+                                <li>色温：调整至4500K左右</li>
+                                <li>对比度：适当提升，突出银河</li>
+                                <li>局部：分别调整前景和天空</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="accommodation">
+                    <h3>住宿：日隆镇蓝天国际大酒店</h3>
+                    <p>价格：598元/晚</p>
+                    <p>特点：
+                        <ul>
+                            <li>位置：距观景台仅5分钟步行</li>
+                            <li>设施：24小时热水，独立暖气</li>
+                            <li>服务：提供免费氧气，叫早服务</li>
+                            <li>房型：建议选择山景房，可看四姑娘山</li>
+                        </ul>
+                    </p>
+                    <p>重要提示：
+                        <ul>
+                            <li>提前准备保暖装备（海拔3200米）</li>
+                            <li>准备氧气瓶（酒店提供）</li>
+                            <li>热水袋（夜间温差大）</li>
+                            <li>房间尽量选择高层（视野好）</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <h2>Day 7（7月15日/16日）：四姑娘山→成都</h2>
+                <div class="timeline">
+                    <p>04:00-07:30 四姑娘山日出拍摄
+                        <ul>
+                            <li>04:00-04:30 到达日隆观景台
+                                <ul>
+                                    <li>检查器材、安装三脚架</li>
+                                    <li>确认构图位置</li>
+                                </ul>
+                            </li>
+                            <li>04:30-05:15 星空延时
+                                <ul>
+                                    <li>设置间隔拍摄：5秒/张</li>
+                                    <li>总计约100张</li>
+                                </ul>
+                            </li>
+                            <li>05:15-06:00 日出全程
+                                <ul>
+                                    <li>05:15-05:30 晨光渐变</li>
+                                    <li>05:30-05:45 云海流动</li>
+                                    <li>05:45-06:00 日出黄金时刻</li>
+                                </ul>
+                            </li>
+                            <li>06:00-07:30 晨光云海
+                                <ul>
+                                    <li>06:00-06:45 主峰特写</li>
+                                    <li>06:45-07:30 全景延时</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </p>
+                    <p>07:30-08:30 返回酒店，早餐</p>
+                    <p>08:30-09:30 整理行装，退房</p>
+                    <p>返程路线A（直接返回）：
+                        <ul>
+                            <li>09:30-15:00 返程成都
+                                <ul>
+                                    <li>09:30-11:30 日隆→小金（海子山必停）</li>
+                                    <li>11:30-12:30 小金午餐（推荐：小金藏餐）</li>
+                                    <li>12:30-15:00 小金→成都（高速）</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </p>
+                    <p>返程路线B（摄影路线）：
+                        <ul>
+                            <li>09:30-16:00 返程成都
+                                <ul>
+                                    <li>09:30-10:30 日隆→海子山</li>
+                                    <li>10:30-11:30 海子山摄影</li>
+                                    <li>11:30-12:30 海子山→小金（午餐）</li>
+                                    <li>12:30-14:00 小金→达维会议遗址</li>
+                                    <li>14:00-16:00 达维→成都</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </p>
+                    <p>16:00-17:00 还车、整理行李</p>
+                    <p>返程航班选择：
+                        <ul>
+                            <li>7月15日：
+                                <ul>
+                                    <li>MU5490 成都-温州 20:30-23:00（提前3小时到机场）</li>
+                                    <li>3U8911 成都-温州 19:45-22:20（提前2.5小时到机场）</li>
+                                </ul>
+                            </li>
+                            <li>7月16日备选：
+                                <ul>
+                                    <li>MU5489 成都-温州 08:25-11:00（建议入住市区）</li>
+                                    <li>3U8912 成都-温州 07:45-10:20（建议入住市区）</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="photo-tip">
+                    <h3>四姑娘山深度拍摄指南</h3>
+                    <ul>
+                        <li>日隆观景台全览（GPS: 31.4814°N, 102.9327°E）：
+                            <ul>
+                                <li>构图方案：
+                                    <ul>
+                                        <li>构图A：四峰全景
+                                            <ul>
+                                                <li>镜头：24-70mm@24mm</li>
+                                                <li>构图：前景加入观景台栏杆</li>
+                                                <li>技巧：利用云海分层</li>
+                                            </ul>
+                                        </li>
+                                        <li>构图B：主峰特写
+                                            <ul>
+                                                <li>镜头：70-200mm@200mm</li>
+                                                <li>重点：突出山体质感</li>
+                                                <li>技巧：等待云彩缭绕</li>
+                                            </ul>
+                                        </li>
+                                        <li>构图C：云海翻滚
+                                            <ul>
+                                                <li>镜头：70-200mm@135mm</li>
+                                                <li>主题：云海流动、晨光穿透</li>
+                                                <li>技巧：连续快拍捕捉瞬间</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>分时段拍摄参数：
+                            <ul>
+                                <li>星空阶段（04:30-05:15）：
+                                    <ul>
+                                        <li>光圈：f/2.8</li>
+                                        <li>ISO：3200-6400</li>
+                                        <li>快门：15-20秒</li>
+                                        <li>白平衡：4000K</li>
+                                    </ul>
+                                </li>
+                                <li>晨光阶段（05:15-05:45）：
+                                    <ul>
+                                        <li>光圈：f/5.6</li>
+                                        <li>ISO：800-1600</li>
+                                        <li>快门：根据测光</li>
+                                        <li>白平衡：5000K</li>
+                                    </ul>
+                                </li>
+                                <li>日出阶段（05:45-06:15）：
+                                    <ul>
+                                        <li>光圈：f/8-f/11</li>
+                                        <li>ISO：100-400</li>
+                                        <li>快门：配合GND使用</li>
+                                        <li>白平衡：5500K</li>
+                                    </ul>
+                                </li>
+                                <li>云海阶段（06:15-07:30）：
+                                    <ul>
+                                        <li>光圈：f/8</li>
+                                        <li>ISO：100</li>
+                                        <li>快门：1/125秒起</li>
+                                        <li>白平衡：6000K</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>后期处理建议：
+                            <ul>
+                                <li>星空照片：
+                                    <ul>
+                                        <li>降噪：选择性降噪</li>
+                                        <li>对比度：适当提升</li>
+                                        <li>色温：调整至偏冷</li>
+                                    </ul>
+                                </li>
+                                <li>日出照片：
+                                    <ul>
+                                        <li>明暗：保持高光细节</li>
+                                        <li>色彩：强调金色调</li>
+                                        <li>局部：分别调整天空和山体</li>
+                                    </ul>
+                                </li>
+                                <li>云海照片：
+                                    <ul>
+                                        <li>层次：增加云海层次感</li>
+                                        <li>色彩：保持自然</li>
+                                        <li>锐化：适当增加细节</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="photo-tip">
+                    <h3>海子山摄影指南（返程路线B）</h3>
+                    <ul>
+                        <li>最佳机位（GPS: 31.4512°N, 102.8734°E）：
+                            <ul>
+                                <li>主题：高山湖泊、草甸、远山</li>
+                                <li>时间：上午10:30-11:30最佳</li>
+                                <li>器材：24-70mm（全景）、70-200mm（压缩）</li>
+                            </ul>
+                        </li>
+                        <li>拍摄技巧：
+                            <ul>
+                                <li>使用偏振镜消除水面反光</li>
+                                <li>利用云影增加画面层次</li>
+                                <li>加入野花或岩石作前景</li>
+                            </ul>
+                        </li>
+                        <li>注意事项：
+                            <ul>
+                                <li>海拔4500米，注意防寒</li>
+                                <li>建议短时间拍摄，避免高反</li>
+                                <li>天气多变，注意器材防护</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>返程备选方案（7月16日）</h2>
+                    <div class="timeline">
+                        <h3>方案安排</h3>
+                        <ul>
+                            <li>15日行程调整：
+                                <ul>
+                                    <li>16:00-17:00 还车</li>
+                                    <li>17:30-18:30 前往太古里璞邸酒店</li>
+                                    <li>19:00-21:30 太古里夜景拍摄
+                                        <ul>
+                                            <li>19:00-20:00 蓝调时分街景</li>
+                                            <li>20:00-21:00 建筑灯光秀</li>
+                                            <li>21:00-21:30 街巷人文</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>16日行程：
+                                <ul>
+                                    <li>05:00 起床整理行李</li>
+                                    <li>05:30 酒店叫车服务</li>
+                                    <li>航班选择：
+                                        <ul>
+                                            <li>MU5489 成都-温州
+                                                <ul>
+                                                    <li>起飞时间：08:25</li>
+                                                    <li>到达时间：11:00</li>
+                                                    <li>价格：¥880起</li>
+                                                    <li>值机时间：05:55（提前2.5小时）</li>
+                                                </ul>
+                                            </li>
+                                            <li>3U8912 成都-温州
+                                                <ul>
+                                                    <li>起飞时间：07:45</li>
+                                                    <li>到达时间：10:20</li>
+                                                    <li>价格：¥790起</li>
+                                                    <li>值机时间：05:15（提前2.5小时）</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="accommodation">
+                        <h3>住宿推荐：成都太古里璞邸酒店</h3>
+                        <p>价格：680元/晚（高级大床房）</p>
+                        <p>地理位置：
+                            <ul>
+                                <li>距离春熙路地铁站步行3分钟</li>
+                                <li>距离双流机场约30分钟车程</li>
+                                <li>可选择机场快线或出租车</li>
+                            </ul>
+                        </p>
+                        <p>房型推荐：
+                            <ul>
+                                <li>高级大床房（35平米）：
+                                    <ul>
+                                        <li>落地窗设计，城市夜景</li>
+                                        <li>定时空调，舒适睡眠</li>
+                                        <li>双层隔音玻璃</li>
+                                    </ul>
+                                </li>
+                                <li>豪华城景房（40平米，+100元）：
+                                    <ul>
+                                        <li>高层景观视野</li>
+                                        <li>独立休息区</li>
+                                        <li>加大卫浴空间</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </p>
+                        <p>酒店特色服务：
+                            <ul>
+                                <li>24小时前台服务</li>
+                                <li>叫车服务（提前预约）</li>
+                                <li>行李寄存</li>
+                                <li>特早早餐服务（5:00开始）</li>
+                            </ul>
+                        </p>
+                    </div>
+
+                    <div class="photo-tip">
+                        <h3>太古里夜景拍摄指南</h3>
+                        <ul>
+                            <li>推荐机位：
+                                <ul>
+                                    <li>太古里北广场（建筑灯光）：
+                                        <ul>
+                                            <li>时间：20:00-21:00</li>
+                                            <li>器材：24-70mm@24mm</li>
+                                            <li>参数：f/8，ISO 100，三脚架必备</li>
+                                </ul>
+                            </li>
+                            <li>街巷人文：
+                                <ul>
+                                    <li>时间：蓝调时分（19:00-20:00）</li>
+                                    <li>器材：35mm定焦或X100VI</li>
+                                    <li>参数：f/2.8，ISO 1600-3200</li>
+                                </ul>
+                            </li>
+                            <li>商业街区：
+                                <ul>
+                                    <li>时间：20:30后</li>
+                                    <li>器材：24-70mm变焦</li>
+                                    <li>主题：霓虹灯光、购物人群</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>拍摄建议：
+                        <ul>
+                            <li>利用反光地面作为前景</li>
+                            <li>捕捉灯光与人群的互动</li>
+                            <li>注意控制高光溢出</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="budget">
+                <h3>备选方案额外预算</h3>
+                <ul>
+                    <li>住宿费用：680元（太古里璞邸酒店）</li>
+                    <li>餐饮费用：
+                        <ul>
+                            <li>晚餐：150元/人（太古里美食）</li>
+                            <li>早餐：酒店含早</li>
+                        </ul>
+                    </li>
+                    <li>交通费用：
+                        <ul>
+                            <li>酒店到机场：
+                                <ul>
+                                    <li>出租车：约100元</li>
+                                    <li>机场快线：30元/人</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>总计额外费用：约1000元（含住宿、餐饮、交通）</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>预算明细（2人）</h2>
+        <div class="budget">
+            <ul>
+                <li>交通费用：
+                    <ul>
+                        <li>机票：约4400元（2人往返）</li>
+                        <li>租车：6000元（含油费，2人分摊）</li>
+                        <li>过路费：约600元（分摊）</li>
+                    </ul>
+                </li>
+                <li>住宿费用（双人间）：
+                    <ul>
+                        <li>成都：498元/晚</li>
+                        <li>康定：498元/晚</li>
+                        <li>新都桥：568元/晚</li>
+                        <li>塔公：团队安排</li>
+                        <li>四姑娘山：598元/晚</li>
+                    </ul>
+                </li>
+                <li>其他费用：
+                    <ul>
+                        <li>餐饮：200元/人/天</li>
+                        <li>门票：约300元/人</li>
+                        <li>摄影器材保险：280元/人</li>
+                        <li>应急备用金：1000元/人</li>
+                    </ul>
+                </li>
+                <li>总预算：约18000元（2人）</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>天气备选方案</h2>
+        <ul>
+            <li>阴天方案：
+                <ul>
+                    <li>转换拍摄主题：黑白风光、人文纪实</li>
+                    <li>调整相机设置：ISO提升至400-800，白平衡调至阴天</li>
+                    <li>重点拍摄：寺庙内部、街市生活、建筑细节</li>
+                </ul>
+            </li>
+            <li>雨天方案：
+                <ul>
+                    <li>创作主题：雨中即景、雨后新景</li>
+                    <li>技术要点：快门速度提高，ISO适当提升</li>
+                    <li>器材防护：相机雨衣、防潮箱必备</li>
+                </ul>
+            </li>
+            <li>大雾方案：
+                <ul>
+                    <li>主题转换：氛围营造、层次表现</li>
+                    <li>技术调整：曝光补偿+0.7至+1.3，白平衡偏冷</li>
+                    <li>重点拍摄：晨雾缭绕、若隐若现的风光</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>自驾安全与建议</h2>
+        <ul>
+            <li>行车安全：
+                <ul>
+                    <li>基本原则：
+                        <ul>
+                            <li>控制车速，保持车距</li>
+                            <li>提前观察路况，谨慎驾驶</li>
+                            <li>不疲劳驾驶，适时休息</li>
+                            <li>严禁酒后驾驶，注意饮食</li>
+                        </ul>
+                    </li>
+                    <li>高原驾驶：
+                        <ul>
+                            <li>上坡路段禁止超车</li>
+                            <li>下坡使用低档位，发动机制动</li>
+                            <li>过弯减速，注意对向来车</li>
+                            <li>遇牦牛羊群减速等待</li>
+                            <li>雨雾天气降低车速</li>
+                            <li>每两小时必须休息15分钟</li>
+                        </ul>
+                    </li>
+                    <li>特殊路段：
+                        <ul>
+                            <li>急弯路段：提前减速，鸣笛示警</li>
+                            <li>陡坡路段：合理控制车速，禁止空档滑行</li>
+                            <li>隧道路段：开启车灯，保持安全车距</li>
+                            <li>施工路段：严格遵守限速要求</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>应急处理：
+                <ul>
+                    <li>车辆故障：
+                        <ul>
+                            <li>立即靠边停车，开启双闪</li>
+                            <li>放置三角警示牌</li>
+                            <li>及时联系救援电话</li>
+                            <li>保持车内温暖，等待救援</li>
+                        </ul>
+                    </li>
+                    <li>身体不适：
+                        <ul>
+                            <li>立即停车休息</li>
+                            <li>补充氧气和水分</li>
+                            <li>必要时服用高原反应药物</li>
+                            <li>情况严重及时就医</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>重要电话：
+                <ul>
+                    <li>道路救援：400-810-1234</li>
+                    <li>交通事故：122</li>
+                    <li>医疗急救：120</li>
+                    <li>报警电话：110</li>
+                    <li>租车公司：预先保存</li>
+                    <li>目的地医院：提前查询</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 在body结束标签前添加Service Worker注册脚本 -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker 注册成功:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker 注册失败:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
